@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>e-certificate</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+      .container {
+        padding-top: 5vh;
+        position: relative;
+        background-image: url("Certificates_Students.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        height: 80vh;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: black;
+        font-family: Arial, sans-serif;
+      }
+      .content {
+        color: black;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        text-align: center;
+        z-index: 1;
+      }
+      h4,
+      h5 {
+        margin: 10px 0;
+      }
+      @media print {
+        body {
+          background-image: none;
+        }
+      }
+
+      .center {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="center">
+      <button id="downloadPdf">Download pdf</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+    <script>
+      document.getElementById("downloadPdf").addEventListener("click", () => {
+        const dynamicContent = `
+            <div class="container">
+                <div class="content">
+                    <h4>Membership Type</h4>
+                    <div>
+                        <h5>hello</h5>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const options = {
+          filename: "certificate.pdf",
+          pagebreak: { mode: ["avoid-all"] },
+          orientation: "landscape",
+          html2canvas: { scale: 1 },
+          jsPDF: { unit: "in", format: "a4", orientation: "landscape" },
+        };
+
+        html2pdf().from(dynamicContent).set(options).save();
+      });
+    </script>
+  </body>
+</html>
